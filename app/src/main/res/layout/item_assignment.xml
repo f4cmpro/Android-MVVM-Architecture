@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.example.testformobiledeveloper.data.model.AssignmentData" />
+
+        <variable
+            name="viewModel"
+            type="com.example.testformobiledeveloper.ui.WorkoutViewModel" />
+
+        <import type="android.view.View" />
+
+        <import type="com.example.testformobiledeveloper.ui.WorkoutViewModel.AssignmentStatus" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_80"
+        android:layout_marginVertical="@dimen/size_10"
+        android:backgroundStatus="@{data.status}"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackgroundBorderless"
+        android:padding="@dimen/size_10">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_40"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{data.title}"
+            android:textSize="@dimen/text_size_16"
+            android:textStyle="bold"
+            android:titleColor="@{data.status}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_5"
+            android:layout_marginEnd="@dimen/size_20"
+            android:status="@{data.status}"
+            android:textSize="@dimen/text_size_12"
+            android:textStyle="normal"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@id/tv_exercises"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_exercises"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_5"
+            android:gravity="start"
+            android:status="@{data.status}"
+            android:textColor="@color/color_1E0A3C"
+            android:textSize="@dimen/text_size_12"
+            android:totalExercises="@{data.totalExercise}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_status"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_checkmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{data.isChecked ? View.VISIBLE : View.GONE}"
+            android:src="@drawable/ic_completed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

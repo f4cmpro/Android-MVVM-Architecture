@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TestForMobileDeveloper</string>
+    <string name="total_exercises">%1$d Exercises</string>
+</resources>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.testformobiledeveloper.ui.WorkoutViewModel.DayOfWeek" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.example.testformobiledeveloper.ui.WorkoutViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh"
+            android:layout_width="@dimen/size_0"
+            android:layout_height="@dimen/size_0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_E5E5E5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/item_monday"
+                        layout="@layout/item_workout"
+                        app:dayOfWeek="@{DayOfWeek.MONDAY}"
+                        app:viewModel="@{viewModel}" />
+
+                    <include
+                        android:id="@+id/item_tuesday"
+                        layout="@layout/item_workout"
+                        app:dayOfWeek="@{DayOfWeek.TUESDAY}"
+                        app:viewModel="@{viewModel}" />
+
+                    <include
+                        android:id="@+id/item_wednesday"
+                        layout="@layout/item_workout"
+                        app:dayOfWeek="@{DayOfWeek.WEDNESDAY}"
+                        app:viewModel="@{viewModel}" />
+
+                    <include
+                        android:id="@+id/item_thursday"
+                        layout="@layout/item_workout"
+                        app:dayOfWeek="@{DayOfWeek.THURSDAY}"
+                        app:viewModel="@{viewModel}" />
+
+                    <include
+                        android:id="@+id/item_friday"
+                        layout="@layout/item_workout"
+                        app:dayOfWeek="@{DayOfWeek.FRIDAY}"
+                        app:viewModel="@{viewModel}" />
+
+                    <include
+                        android:id="@+id/item_saturday"
+                        layout="@layout/item_workout"
+                        app:dayOfWeek="@{DayOfWeek.SATURDAY}"
+                        app:viewModel="@{viewModel}" />
+
+                    <include
+                        android:id="@+id/item_sunday"
+                        layout="@layout/item_workout"
+                        app:dayOfWeek="@{DayOfWeek.SUNDAY}"
+                        app:viewModel="@{viewModel}" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <!-- Progress bar -->
+        <FrameLayout
+            android:id="@+id/loading_progress"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clickable="@{viewModel.loadingState.isLoading()}"
+            android:visibility="@{viewModel.loadingState.isLoading() ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                style="@android:style/Widget.Material.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
