@@ -11,25 +11,33 @@ import com.example.testformobiledeveloper.data.model.AssignmentData
 import com.example.testformobiledeveloper.databinding.ItemAssignmentBinding
 
 class AssignmentAdapter(
-    private val viewModel : WorkoutViewModel
-) : ListAdapter<AssignmentData, AssignmentAdapter.AssignmentViewHolder>(DIFF_CALLBACK){
-    inner class AssignmentViewHolder(private val parent : ViewGroup,
-                                     private val binding : ItemAssignmentBinding =
-                                  DataBindingUtil.inflate(LayoutInflater.from(parent.context),
-                                      R.layout.item_assignment, parent, false))
-        : RecyclerView.ViewHolder(binding.root){
-            fun bind(assignmentData : AssignmentData, workoutViewModel: WorkoutViewModel) {
-                binding.apply {
-                    data = assignmentData
-                    viewModel = workoutViewModel
-                    binding.notifyChange()
-                    binding.executePendingBindings()
-                }
-                itemView.setOnClickListener {
-                    assignmentData.isChecked = !assignmentData.isChecked
-                    binding.data = assignmentData
-                }
+    private val viewModel: WorkoutViewModel
+) : ListAdapter<AssignmentData, AssignmentAdapter.AssignmentViewHolder>(DIFF_CALLBACK) {
+    inner class AssignmentViewHolder(
+        private val parent: ViewGroup,
+        private val binding: ItemAssignmentBinding =
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_assignment, parent, false
+            )
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(assignmentData: AssignmentData, workoutViewModel: WorkoutViewModel) {
+            binding.apply {
+                data = assignmentData
+                viewModel = workoutViewModel
+                binding.notifyChange()
+                binding.executePendingBindings()
             }
+            itemView.setOnClickListener {
+                if (assignmentData.status == WorkoutViewModel.AssignmentStatus.COMPLETED.id) {
+                    assignmentData.status = assignmentData.beforeStatus
+                } else {
+                    assignmentData.beforeStatus = assignmentData.status
+                    assignmentData.status = WorkoutViewModel.AssignmentStatus.COMPLETED.id
+                }
+                binding.data = assignmentData
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssignmentViewHolder {
@@ -43,15 +51,22 @@ class AssignmentAdapter(
 
     companion object {
 
-        val DIFF_CALLBACK: DiffUtil.ItemCallback<AssignmentData> = object : DiffUtil.ItemCallback<AssignmentData>() {
-            override fun areItemsTheSame(oldItem: AssignmentData, newItem: AssignmentData): Boolean {
-                return oldItem.id == newItem.id
-            }
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<AssignmentData> =
+            object : DiffUtil.ItemCallback<AssignmentData>() {
+                override fun areItemsTheSame(
+                    oldItem: AssignmentData,
+                    newItem: AssignmentData
+                ): Boolean {
+                    return oldItem.id == newItem.id
+                }
 
-            override fun areContentsTheSame(oldItem: AssignmentData, newItem: AssignmentData): Boolean {
-                return oldItem == newItem
+                override fun areContentsTheSame(
+                    oldItem: AssignmentData,
+                    newItem: AssignmentData
+                ): Boolean {
+                    return oldItem == newItem
+                }
             }
-        }
 
     }
 }

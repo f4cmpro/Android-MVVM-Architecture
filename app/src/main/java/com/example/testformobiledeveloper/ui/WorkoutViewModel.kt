@@ -126,12 +126,12 @@ class WorkoutViewModel @Inject constructor(private val repository: WorkoutListRe
 
     enum class AssignmentStatus(val id: Int, val status: String) {
         ASSIGNED(
-            0,
+            1,
             "Assigned"
         ),
 
         MISSED(
-            1,
+            0,
             "Missed"
         ),
 
