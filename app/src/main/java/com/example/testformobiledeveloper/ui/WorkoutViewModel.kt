@@ -21,8 +21,6 @@ class WorkoutViewModel @Inject constructor(private val repository: WorkoutListRe
     val assignments5 = MutableLiveData<List<AssignmentData>>()
     val assignments6 = MutableLiveData<List<AssignmentData>>()
 
-    val clickItem = MutableLiveData<Any>()
-
     private var isFirstLoading = false
 
     private var isRefreshing = false
